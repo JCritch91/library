@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./java.js" defer></script>
+</head>
+<body>
+        <div class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>bookshelf</title><path d="M9 3V18H12V3H9M12 5L16 18L19 17L15 4L12 5M5 5V18H8V5H5M3 19V21H21V19H3Z" /></svg>
+            <p>BOOKCENTRE</p>
+        </div>
+        <div class="mainContainer">
+            <div class="sidebar">
+                <button class="newBook">New Book</button>
+            </div>
+            <div class="displayContainer">
+                <div class="card">
+                    <div class="picture"></div>
+                    <p class="cardTitle">aaaa</p>
+                    <p class="author">aaaaa</p>
+                    <p class="pages">aaaaa</p>
+                    <p class="read">aaaaa</p>
+                </div>
+                <div class="card">2</div>
+                <div class="card">3</div>
+                <div class="card">4</div>
+                <div class="card">5</div>
+                <div class="card">6</div>
+                <div class="card">6</div>
+                <div class="card">6</div>
+                <div class="card">6</div>
+            </div>
+        </div>
+        <div class="footer">Copyright © JCritch91</div>
+
+    <dialog id="newBookDialog">
+        <button id="closeButton">Close</button>
+        <form action="#" method="dialog">
+            <label for="title">Book Title</label>
+            <input type="text" id="title" name="title" class="bookInput">
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" class="bookInput">
+            <label for="pages">Number of Pages</label>
+            <input type="text" id="pages" name="pages" class="bookInput">
+            <label for="read">Have you read the book?</label>
+            <input type="text" name="read" id="read" class="bookInput">
+            <button class="submit" value="default">Submit</button>
+        </form>
+
+      </dialog>
+
+      
+</body>
+</html>
