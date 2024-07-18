@@ -1,12 +1,6 @@
 ::backdrop {
-    background-image: linear-gradient(
-      45deg,
-      magenta,
-      rebeccapurple,
-      dodgerblue,
-      green
-    );
-    opacity: 0.75;
+    background-color: gray;
+    opacity: 0.50;
   }
 
   body{
@@ -24,7 +18,8 @@
   }
 
   .header{
-    padding-left: 2%;
+    flex-shrink: 0;
+    padding: 2%;
     font-size: 2rem;
     font-weight: bold;
     display: flex;
@@ -32,6 +27,7 @@
     color: white;
     fill: white;
     background-color: #075985;
+    
   }
 
   svg{
@@ -80,7 +76,6 @@ flex-grow: 1;
   }
 
   .picture{
-    background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/TheHobbit_FirstEdition.jpg/220px-TheHobbit_FirstEdition.jpg');
     background-position: center;
     background-size: contain;
     border-radius: 8px;
@@ -89,10 +84,27 @@ flex-grow: 1;
     width: 65%;
   }
 
-  .cardTitle{
-    font-weight: bold;
+  .bottomContent{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
+  .line{
+    display: flex;
+  }
+
+  .cardTitle,.author,.pages,.read{
+    width: 100px;
+  }
+
+  .heading, .bookTitle{
+    width: 80px;
+  }
+
+  .bookTitle, .cardTitle{
+    font-weight: bold;
+  }
 
   .footer{
     display: flex;
