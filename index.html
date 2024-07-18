@@ -14,48 +14,71 @@
         </div>
         <div class="mainContainer">
             <div class="sidebar">
-                <button class="newBook">New Book</button>
+                <button class="newBook">+</button>
             </div>
             <div class="displayContainer">
-                <div class="card">
-                    <div class="picture"></div>
-                    <div class="bottomContent">
-                            <div class="line">
-                                <p class="bookTitle">aaaa</p>
-                                <p class="cardTitle">aaaa</p>
-                            </div>
-                            <div class="line">
-                                <p >aaaaa</p>
-                                <p class="author">aaaaa</p>
-                            </div>
-                            <div class="line">
-                                <p >aaaaa</p>
-                                <p class="pages">aaaaa</p>
-                            </div>
-                            <div class="line">
-                                <p >aaaaa</p>
-                                <p class="read">aaaaa</p>
-                            </div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="footer">Copyright © JCritch91</div>
 
     <dialog id="newBookDialog">
-        <button id="closeButton">Close</button>
-        <form action="#" method="dialog">
-            <label for="title">Book Title</label>
-            <input type="text" id="title" name="title" class="bookInput">
-            <label for="author">Author</label>
-            <input type="text" id="author" name="author" class="bookInput">
-            <label for="pages">Number of Pages</label>
-            <input type="text" id="pages" name="pages" class="bookInput">
-            <label for="read">Have you read the book?</label>
-            <input type="text" name="read" id="read" class="bookInput">
-            <button class="submit" value="default">Submit</button>
+        <form action="#" method="dialog" class="new">
+            <div class="inputLine">
+                <label for="title">Book Title:</label>
+                <input type="text" id="title" name="title" class="bookInput1">
+            </div>
+            <div class="inputLine">
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="author" class="bookInput2">
+            </div>
+            <div class="inputLine">
+                <label for="pages">Number of Pages:</label>
+                <input type="text" id="pages" name="pages" class="bookInput3">
+            </div>
+            <div class="inputLine">
+                <label for="read">Have you read the book?</label>
+                <input type="text" name="read" id="read" class="bookInput4">
+            </div>
+            <div class="inputLine">
+                <label for="url">Cover URL:</label>
+                <input type="link" id="url" name="url" class="bookInput5">
+            </div>
+            <div class="formButtons">
+                <button id="closeButton">Close</button>
+                <button class="submit" value="default">Submit</button>
+            </div>
         </form>
+      </dialog>
 
+
+      <dialog id="editBookDialog">
+        <form class="edit" action="#" method="dialog" class="edit">
+            <div class="inputLine">
+                <label for="title">Book Title:</label>
+                <input type="text" id="bookInput1" name="title" class="bookInput1">
+            </div>
+            <div class="inputLine">
+                <label for="author">Author:</label>
+                <input type="text" id="bookInput2" name="author" class="bookInput2">
+            </div>
+            <div class="inputLine">
+                <label for="pages">Number of Pages:</label>
+                <input type="text" id="bookInput3" name="pages" class="bookInput3">
+            </div>
+            <div class="inputLine">
+                <label for="read">Have you read the book?</label>
+                <input type="text" name="read" id="bookInput4" class="bookInput4">
+            </div>
+            <div class="inputLine">
+                <label for="url">Cover URL:</label>
+                <input type="link" id="bookInput5" name="url" class="bookInput5">
+            </div>
+            <div class="formButtons">
+                <button id="closeButton">Close</button>
+                <button class="update" value="default">Update</button>
+            </div>
+        </form>
       </dialog>
 
       

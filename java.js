@@ -2,11 +2,20 @@
 const display = document.querySelector('.displayContainer')
 const newBookButton = document.querySelector('.newBook')
 const newBookDialog = document.getElementById("newBookDialog")
+const editBookDialog = document.getElementById('editBookDialog')
 const closeButton = newBookDialog.querySelector('#closeButton')
 const newBookSubmBtn = newBookDialog.querySelector('.submit')
+const editBookSubmitBtn = editBookDialog.querySelector('.update')
+const form = document.querySelector('.new')
+const form2 = document.querySelector('.edit')
+const inputOne = document.getElementById('bookInput1')
+const inputTwo = document.getElementById('bookInput2')
+const inputThree = document.getElementById('bookInput3')
+const inputFour = document.getElementById('bookInput4')
+const inputFive = document.getElementById('bookInput5')
 const myLibrary =[]
 
-const form = document.querySelector('form')
+
 
 newBookButton.addEventListener("click", () => {
     newBookDialog.showModal();
@@ -31,8 +40,26 @@ newBookSubmBtn.addEventListener('click', (event) =>{
     addBookToLibrary(myArray)
     event.preventDefault()
     newBookDialog.close();
-/*     displayAllBooks() */
+    display.replaceChildren()
+    displayAllBooks();
   })
+
+  editBookSubmitBtn.addEventListener('click', (event) =>{
+    let myArray = []
+    Array.from(form2.elements).forEach((input) =>{
+        myArray.push(input.value)
+        myLibrary.splice(event.id,1,myArray)
+        input.value ='' 
+    })
+    event.preventDefault()
+    editBookDialog.close()
+    display.replaceChildren()
+    displayAllBooks();
+  })
+
+  function editBookData(array, id){
+
+  }
 
 function Book(title, author, pages, read, url){
     this.title = title
@@ -104,9 +131,16 @@ function addBookToLibrary(array){
     newButton.addEventListener('click', () =>{
     display.replaceChildren()
     const x = myLibrary.splice(newButton.id, 1);
-    displayAllBooks()
-          return
-        
+    displayAllBooks() 
+    })
+
+    const newButton2 = document.createElement('button')
+    newButton2.setAttribute('id', i)
+    const cardButtonContainer = document.createElement('div')
+    cardButtonContainer.classList.add('cardButtonContainer')
+    newButton2.textContent = 'Edit'
+    newButton2.addEventListener('click', ()=>{
+        editBook(newButton2.id)
     })
 
     line1.appendChild(newT1)
@@ -126,11 +160,23 @@ function addBookToLibrary(array){
 
     newCard.appendChild(newPicture)
     newCard.appendChild(newBottomContent)
-    newCard.appendChild(newButton)
+    cardButtonContainer.appendChild(newButton)
+    cardButtonContainer.appendChild(newButton2)
+    newCard.appendChild(cardButtonContainer)
     display.appendChild(newCard)
 
 
     }
+}
+
+function editBook(i){
+    editBookDialog.showModal()
+    let myArray = myLibrary[i].toString().split(',')
+    inputOne.value = myArray[0]
+    inputTwo.value = myArray[1]
+    inputThree.value = myArray[2]
+    inputFour.value = myArray[3]
+    inputFive.value = myArray[4]
 }
 
 const newBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', '310', 'No', 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/TheHobbit_FirstEdition.jpg/220px-TheHobbit_FirstEdition.jpg' )
