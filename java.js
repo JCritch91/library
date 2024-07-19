@@ -8,12 +8,32 @@ const newBookSubmBtn = newBookDialog.querySelector('.submit')
 const editBookSubmitBtn = editBookDialog.querySelector('.update')
 const form = document.querySelector('.new')
 const form2 = document.querySelector('.edit')
-const inputOne = document.getElementById('bookInput1')
-const inputTwo = document.getElementById('bookInput2')
-const inputThree = document.getElementById('bookInput3')
-const inputFour = document.getElementById('bookInput4')
-const inputFive = document.getElementById('bookInput5')
+const inputOne = form.querySelector('.bookInput1')
+const inputTwo = form.querySelector('.bookInput2')
+const inputThree = form.querySelector('.bookInput3')
+const inputFour = form.querySelector('.bookInput4')
+const inputFive = form.querySelector('.bookInput5')
+const inputSix = form2.querySelector('#bookInput6')
+const inputSeven = document.getElementById('bookInput7')
+const inputEight = document.getElementById('bookInput8')
+const inputNine = document.getElementById('bookInput9')
+const inputTen = document.getElementById('bookInput10')
+
 const myLibrary =[]
+
+function populateLibrary(){
+    let book
+book = new Book('The Hobbit', 'J.R.R. Tolkien', '310', false, 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/TheHobbit_FirstEdition.jpg/220px-TheHobbit_FirstEdition.jpg' )
+myLibrary.push(book)
+book = new Book('Harry Potter and the Deathly Hallows', 'J.K. Rowling', '607', true, 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg/220px-Harry_Potter_and_the_Deathly_Hallows.jpg')
+myLibrary.push(book)
+book = new Book('Dracula', 'Bram Stoker', '418', false, 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Dracula_1st_ed_cover_reproduction.jpg/220px-Dracula_1st_ed_cover_reproduction.jpg')
+myLibrary.push(book)
+book = new Book('Of Mice and Men', 'John Steinbeck', '107', true, 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Of_Mice_and_Men_%281937_1st_ed_dust_jacket%29.jpg/220px-Of_Mice_and_Men_%281937_1st_ed_dust_jacket%29.jpg')
+myLibrary.push(book)
+book = new Book('Lord of the Flies', 'William Golding', '224', false, 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/LordOfTheFliesBookCover.jpg/220px-LordOfTheFliesBookCover.jpg')
+
+}
 
 
 
@@ -32,12 +52,7 @@ closeButton.addEventListener("click", (event) => {
   })
 
 newBookSubmBtn.addEventListener('click', (event) =>{
-    let myArray = []
-    Array.from(form.elements).forEach((input) =>{
-        myArray.push(input.value)
-        input.value ='' 
-    })
-    addBookToLibrary(myArray)
+    addBookToLibrary()
     event.preventDefault()
     newBookDialog.close();
     display.replaceChildren()
@@ -46,20 +61,20 @@ newBookSubmBtn.addEventListener('click', (event) =>{
 
   editBookSubmitBtn.addEventListener('click', (event) =>{
     let myArray = []
-    Array.from(form2.elements).forEach((input) =>{
-        myArray.push(input.value)
-        myLibrary.splice(event.id,1,myArray)
-        input.value ='' 
-    })
+
+    this.title = inputSix.value
+    this.author = inputSeven.value
+    this.pages = inputEight.value
+    this.url = inputTen.value
+    this.read = inputNine.checked
+    myArray.push(`${this.title}, ${this.author}, ${this.pages}, ${this.read}, ${this.url}`)
+    myLibrary.splice(event.id,1,myArray)
+
     event.preventDefault()
     editBookDialog.close()
     display.replaceChildren()
     displayAllBooks();
   })
-
-  function editBookData(array, id){
-
-  }
 
 function Book(title, author, pages, read, url){
     this.title = title
@@ -67,24 +82,33 @@ function Book(title, author, pages, read, url){
     this.pages = pages
     this.read = read
     this.url = url
-    myLibrary.push(`${this.title}, ${this.author}, ${this.pages}, ${this.read}, ${this.url}`)
-    return
+    this.isReadMessage = function () {
+        if (this.read){
+            return "Has been read"
+        } else {
+            return "Has not been read"
+        }
+    }
 }
 
-function addBookToLibrary(array){
-    let newBook = new Book(array[0], array[1], array[2], array[3], array[4])
 
-    return
+function addBookToLibrary(){
+    let title = inputOne.value
+    let author = inputTwo.value
+    let pages = inputThree.value
+    let read = inputFour.checked
+    let url = inputFive.value
+    let book = new Book(title, author, pages, read, url)
+    myLibrary.push(book)
 }
 
     function displayAllBooks(){
-    for (i=0; i < myLibrary.length; i++){
-    let id = myLibrary[i].toString().split(',')
+        myLibrary.forEach((book, index) =>{
 
 
     const newCard = document.createElement('div')
     newCard.classList.add('card')
-    newCard.setAttribute('id', i)
+    newCard.setAttribute('id', index)
     const newBottomContent = document.createElement('div')
     newBottomContent.classList.add('bottomContent')
     const line1 = document.createElement('div')
@@ -111,22 +135,27 @@ function addBookToLibrary(array){
 
     const newP1 = document.createElement('p')
     newP1.classList.add('cardTitle')
-    newP1.textContent = `${id[0]}`
+    newP1.textContent = book.title
     const newP2 = document.createElement('p')
     newP2.classList.add('author')
-    newP2.textContent = `${id[1]}`
+    newP2.textContent = book.author
     const newP3 = document.createElement('p')
     newP3.classList.add('pages')
-    newP3.textContent = `${id[2]}`
-    const newP4 = document.createElement('p')
+    newP3.textContent = book.pages
+    const newP4 = document.createElement('input')
     newP4.classList.add('read')
-    newP4.textContent = `${id[3]}`
+    newP4.type = 'checkbox'
+    newP4.setAttribute('id', `read${index}`)
+    newP4.setAttribute('name', 'read')
+    newP4.checked = myLibrary[index].read
+
+    
     const newPicture = document.createElement('div')
     newPicture.classList.add('picture')
-    newPicture.style.backgroundImage = `url(${id[4]})`
+    newPicture.style.backgroundImage = `url(${book.url})`
 
     const newButton = document.createElement('button')
-    newButton.setAttribute('id', i)
+    newButton.setAttribute('id', index)
     newButton.textContent = 'Delete'
     newButton.addEventListener('click', () =>{
     display.replaceChildren()
@@ -135,7 +164,7 @@ function addBookToLibrary(array){
     })
 
     const newButton2 = document.createElement('button')
-    newButton2.setAttribute('id', i)
+    newButton2.setAttribute('id', index)
     const cardButtonContainer = document.createElement('div')
     cardButtonContainer.classList.add('cardButtonContainer')
     newButton2.textContent = 'Edit'
@@ -166,22 +195,24 @@ function addBookToLibrary(array){
     display.appendChild(newCard)
 
 
-    }
+})
 }
 
 function editBook(i){
     editBookDialog.showModal()
     let myArray = myLibrary[i].toString().split(',')
-    inputOne.value = myArray[0]
-    inputTwo.value = myArray[1]
-    inputThree.value = myArray[2]
-    inputFour.value = myArray[3]
-    inputFive.value = myArray[4]
+    inputSix.value = myArray[0]
+    inputSeven.value = myArray[1]
+    inputEight.value = myArray[2]
+    if (myArray[3] == 'yes'){    
+        inputNine.checked = true
+    } else{
+        inputNine.checked = false
+    }
+
+    inputTen.value = myArray[4]
 }
 
-const newBook1 = new Book('The Hobbit', 'J.R.R. Tolkien', '310', 'No', 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/TheHobbit_FirstEdition.jpg/220px-TheHobbit_FirstEdition.jpg' )
-const newBook2 = new Book('Harry Potter and the Deathly Hallows', 'J.K. Rowling', '607', 'Yes', 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg/220px-Harry_Potter_and_the_Deathly_Hallows.jpg')
-const newBook3 = new Book('Dracula', 'Bram Stoker', '418', 'No', 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Dracula_1st_ed_cover_reproduction.jpg/220px-Dracula_1st_ed_cover_reproduction.jpg')
-const newBook4 = new Book('Of Mice and Men', 'John Steinbeck', '107', 'Yes', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Of_Mice_and_Men_%281937_1st_ed_dust_jacket%29.jpg/220px-Of_Mice_and_Men_%281937_1st_ed_dust_jacket%29.jpg')
-const newBook5 = new Book('Lord of the Flies', 'William Golding', '224', 'No', 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/LordOfTheFliesBookCover.jpg/220px-LordOfTheFliesBookCover.jpg')
+
+populateLibrary()
 displayAllBooks()
