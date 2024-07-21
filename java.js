@@ -41,15 +41,7 @@ function populateLibrary(){
     book = new Book('Lord of the Flies', 'William Golding', '224', false, 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/LordOfTheFliesBookCover.jpg/220px-LordOfTheFliesBookCover.jpg')
 }
 
-
-
-
-
-
-  
-
-
-  function editBookInLibrary(){
+function editBookInLibrary(){
     let book
     let i = newBookSubmBtn.id
     let title = inputOne.value
@@ -61,9 +53,6 @@ function populateLibrary(){
     myLibrary.splice(i,1,book)
   }
 
-
-
-
 function addBookToLibrary(){
     let title = inputOne.value
     let author = inputTwo.value
@@ -72,89 +61,6 @@ function addBookToLibrary(){
     let url = inputFive.value
     let book = new Book(title, author, pages, read, url)
     myLibrary.push(book)
-}
-
-function displayAllBooks(){
-    myLibrary.forEach((book, index) =>{
-
-        let cardDiv, picDiv, p, input
-
-        const newCard = document.createElement('div')
-        newCard.classList.add('card')
-        newCard.setAttribute('id', index)
-        const newBottomContent = document.createElement('div')
-        newBottomContent.classList.add('bottomContent')
-        const line1 = document.createElement('div')
-        const line2 = document.createElement('div')
-        const line3 = document.createElement('div')
-        const line4 = document.createElement('div')
-        line1.classList.add('line')
-        line2.classList.add('line')
-        line3.classList.add('line')
-        line4.classList.add('line')
-
-        const newP1 = document.createElement('p')
-        newP1.classList.add('cardTitle')
-        newP1.textContent = book.title
-        const newP2 = document.createElement('p')
-        newP2.classList.add('author')
-        newP2.textContent = book.author
-        const newP3 = document.createElement('p')
-        newP3.classList.add('pages')
-        newP3.textContent = `${book.pages} Pages`
-        const newP4 = document.createElement('input')
-        newP4.classList.add('read')
-        newP4.type = 'checkbox'
-        newP4.setAttribute('id', `read${index}`)
-        newP4.setAttribute('name', 'read')
-        newP4.checked = myLibrary[index].read
-        newP4.addEventListener('click', () =>{
-            myLibrary[index].read = newP4.checked
-    })
-
-    
-    const newPicture = document.createElement('div')
-    newPicture.classList.add('picture')
-    newPicture.style.backgroundImage = `url(${book.url})`
-
-    const newButton = document.createElement('button')
-    newButton.setAttribute('id', index)
-    newButton.textContent = 'Delete'
-    newButton.addEventListener('click', () =>{
-    display.replaceChildren()
-    const x = myLibrary.splice(newButton.id, 1);
-    displayAllBooks() 
-    })
-
-    const newButton2 = document.createElement('button')
-    newButton2.setAttribute('id', index)
-    const cardButtonContainer = document.createElement('div')
-    cardButtonContainer.classList.add('cardButtonContainer')
-    newButton2.textContent = 'Edit'
-    newButton2.addEventListener('click', ()=>{
-        editBook(newButton2.id)
-    })
-
-
-    line1.appendChild(newP1)
-    line2.appendChild(newP2) 
-    line3.appendChild(newP3)
-    line4.appendChild(newP4)
-
-    newBottomContent.appendChild(line1)
-    newBottomContent.appendChild(line2)
-    newBottomContent.appendChild(line3)
-    newBottomContent.appendChild(line4)
-
-    newCard.appendChild(newPicture)
-    newCard.appendChild(newBottomContent)
-    cardButtonContainer.appendChild(newButton)
-    cardButtonContainer.appendChild(newButton2)
-    newCard.appendChild(cardButtonContainer)
-    display.appendChild(newCard)
-
-
-    })
 }
 
 function editBook(i){
@@ -166,6 +72,69 @@ function editBook(i){
     inputFour.checked = book.read
     inputFive.value = book.url
     newBookSubmBtn.id = i
+}
+
+function displayAllBooks(){
+    myLibrary.forEach((book, index)=>{
+        let cardDiv, div, p, input, button
+
+        cardDiv = document.createElement('div')
+        cardDiv.classList.add('card')
+        cardDiv.setAttribute('id', index)
+
+        div = document.createElement('div')
+        div.classList.add('picture')
+        div.style.backgroundImage = `url(${book.url})`
+        cardDiv.appendChild(div)
+
+        p = document.createElement('p')
+        p.classList.add('cardTitle')
+        p.textContent = book.title
+        cardDiv.appendChild(p)
+
+        p = document.createElement('p')
+        p.classList.add('author')
+        p.textContent = book.author
+        cardDiv.appendChild(p)
+
+        p = document.createElement('p')
+        p.classList.add('pages')
+        p.textContent = `${book.pages} Pages`
+        cardDiv.appendChild(p)
+
+        input = document.createElement('input')
+        input.classList.add('read')
+        input.type = 'checkbox'
+        input.setAttribute('id', `read${index}`)
+        input.setAttribute('name', 'read')
+        input.checked = myLibrary[index].read
+        input.addEventListener('click', () =>{
+            myLibrary[index].read = input.checked
+        })
+        cardDiv.appendChild(input)
+
+        div = document.createElement('div')
+        div.classList.add('cardButtonContainer')
+        button = document.createElement('button')
+        button.setAttribute('id', index)
+        button.textContent = 'Delete'
+        button.addEventListener('click', ()=>{
+            display.replaceChildren()
+            const x = myLibrary.splice(button.id, 1);
+            displayAllBooks() 
+        })
+        div.appendChild(button)
+
+        button = document.createElement('button')
+        button.setAttribute('id', index)
+        button.textContent = 'Edit'
+        button.addEventListener('click', ()=>{
+            editBook(button.id)
+        })
+        div.appendChild(button)
+        cardDiv.appendChild(div)
+        display.appendChild(cardDiv)
+    })
 }
 
 newBookButton.addEventListener("click", () => {
@@ -183,9 +152,9 @@ closeButton.addEventListener("click", (event) => {
 
 newBookSubmBtn.addEventListener('click', (event) =>{
     if (newBookSubmBtn.id == ''){
-    addBookToLibrary()
+        addBookToLibrary()
     } else {
-    editBookInLibrary()
+        editBookInLibrary()
     }
     event.preventDefault()
     newBookDialog.close();
