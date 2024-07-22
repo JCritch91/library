@@ -10,6 +10,11 @@ const inputTwo = form.querySelector('.bookInput2')
 const inputThree = form.querySelector('.bookInput3')
 const inputFour = form.querySelector('.bookInput4')
 const inputFive = form.querySelector('.bookInput5')
+const titleErr = document.querySelector('.titleErr')
+const authorErr = document.querySelector('.authorErr')
+const pagesErr = document.querySelector('.pagesErr')
+const pageNumErr = document.querySelector('.pageNumErr')
+const urlErr = document.querySelector('.urlErr')
 
 const myLibrary =[]
 
@@ -74,9 +79,53 @@ function editBook(i){
     newBookSubmBtn.id = i
 }
 
-function displayAllBooks(){
+function validateForm(event){
+    event.preventDefault()
+    if (inputOne.value ==''){
+        titleErr.style.display = 'block'
+    } else {
+        titleErr.style.display = 'none'
+    }
+    if (inputTwo.value ==''){
+        authorErr.style.display = 'block'
+    } else {
+        authorErr.style.display = 'none'
+    }
+    if (inputThree.value ==''){
+        pagesErr.style.display = 'block'
+    } else {
+        pagesErr.style.display = 'none'
+    }
+    if (inputThree.value <=0){
+        pageNumErr.style.display = 'block'
+    } else {
+        pageNumErr.style.display = 'none'
+    }
+    if (inputFive.value ==''){
+        urlErr.style.display = 'block'
+    } else {
+        urlErr.style.display = 'none'
+    }
+    if (inputOne.value !=='' && inputTwo.value !=='' && inputThree.value !=='' && inputThree.value > 0 && inputFive.value !==''){
+    if (newBookSubmBtn.id == ''){
+        addBookToLibrary()
+        form.reset()
+        newBookDialog.close();
+        display.replaceChildren()
+        displayAllBooks();
+    } else {
+        editBookInLibrary()
+        form.reset()
+        newBookDialog.close();
+        display.replaceChildren()
+        displayAllBooks();
+    }
+  }
+}
+
+ function displayAllBooks(){
     myLibrary.forEach((book, index)=>{
-        let cardDiv, div, p, input, button
+        let cardDiv, div, picture, p, input, button, label
 
         cardDiv = document.createElement('div')
         cardDiv.classList.add('card')
@@ -84,7 +133,9 @@ function displayAllBooks(){
 
         div = document.createElement('div')
         div.classList.add('picture')
-        div.style.backgroundImage = `url(${book.url})`
+        picture = document.createElement('img')
+        picture.src = `${book.url}`
+        div.appendChild(picture)
         cardDiv.appendChild(div)
 
         p = document.createElement('p')
@@ -102,16 +153,20 @@ function displayAllBooks(){
         p.textContent = `${book.pages} Pages`
         cardDiv.appendChild(p)
 
+        label = document.createElement('label')
         input = document.createElement('input')
-        input.classList.add('read')
-        input.type = 'checkbox'
-        input.setAttribute('id', `read${index}`)
-        input.setAttribute('name', 'read')
+        input.type ='checkbox'
+        input.setAttribute('id', `checkbox${index}`)
+        label.setAttribute('for', `checkbox${index}`)
+        label.classList.add('labelForCheckbox')
+        input.classList.add('customCheckbox')
         input.checked = myLibrary[index].read
         input.addEventListener('click', () =>{
             myLibrary[index].read = input.checked
         })
-        cardDiv.appendChild(input)
+        label.appendChild(input)
+        cardDiv.appendChild(label)
+
 
         div = document.createElement('div')
         div.classList.add('cardButtonContainer')
@@ -135,32 +190,28 @@ function displayAllBooks(){
         cardDiv.appendChild(div)
         display.appendChild(cardDiv)
     })
-}
+} 
+
 
 newBookButton.addEventListener("click", () => {
     newBookDialog.showModal();
   })    
 
 closeButton.addEventListener("click", (event) => {
-    Array.from(form.elements).forEach((input) =>{
-        event.preventDefault()
-        input.value = ''
-    })
+    event.preventDefault()
+    titleErr.style.display ='none'
+    authorErr.style.display ='none'
+    pagesErr.style.display ='none'
+    pageNumErr.style.display='none'
+    urlErr.style.display ='none'
+    form.reset()
     newBookSubmBtn.id = ''
     newBookDialog.close();
   })
 
 newBookSubmBtn.addEventListener('click', (event) =>{
-    if (newBookSubmBtn.id == ''){
-        addBookToLibrary()
-    } else {
-        editBookInLibrary()
-    }
-    event.preventDefault()
-    newBookDialog.close();
-    display.replaceChildren()
-    displayAllBooks();
-  })
+    validateForm(event)
+})
 
 populateLibrary()
 displayAllBooks()

@@ -3,7 +3,7 @@
     opacity: 0.50;
   }
 
-  #newBookDialog, #editBookDialog{
+  #newBookDialog{
     border: 1px solid black;
     border-radius: 8px;
     background-color: #9ca3af;
@@ -13,7 +13,7 @@
     padding-top: 20px;
     justify-content: space-between;
     gap: 20px;
-    width: 30vw;
+    width: 50vw;
     height: 50vh;
     display: flex;
     flex-direction: column;
@@ -26,17 +26,22 @@
   }
 
   .inputLine{
-    width: 90%;
+    flex-direction: column;
     display: flex;
-    align-items: center;
-    gap: 20px;
+    width: 100%;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .one,.two,.three,.four,.five{
+    width: 100%;
   }
 
   input{
     padding-left: 5px;
     border: 1px solid gray;
     border-radius: 16px;
-    width: 100%;
+    width: 70%;
     height: 20px;
   }
 
@@ -50,13 +55,18 @@
     justify-content: center;
   }
 
-  #closeButton,.submit, .update{
+  #closeButton,.submit{
     border: 0px;
     box-shadow: 4px 4px 2px grey;
     background-color:#dbeafe;
     height: 30px;
     width: 70px;
     border-radius: 16px;
+  }
+
+  .titleErr, .authorErr, .pagesErr, .pageNumErr, .urlErr{
+    display: none;
+    color: red;
   }
   
 
@@ -101,10 +111,11 @@
     background-color: #dbeafe;
     box-shadow: 4px 4px 2px grey;
     font-size: 40px;
+    border: 1px solid gray;
     border-radius: 50%;
     margin-top: 10%;
-    height: 10vw;
-    width: 60%;
+    height: 5vw;
+    width: 30%;
   }
   
 
@@ -144,12 +155,14 @@
   }
 
   .picture{
-    background-position: center;
-    background-size: cover;
     border-radius: 8px;
     border: 1px solid black;
     height: 70%;
     width: 65%;
+  }
+  .picture img{
+    height: 100%;
+    width:100%
   }
 
   .bottomContent{
@@ -161,10 +174,6 @@
   .line{
     display: flex;
   }
-
-/*   .cardTitle,.author,.pages{
-    width: 100px;
-  } */
 
   .cardButtonContainer>button{
     height: 30px;
@@ -188,6 +197,37 @@
     font-weight: bold;
   }
 
+
+  .labelForCheckbox{
+    display: block; 
+    position: relative; 
+    box-sizing: border-box; 
+    height: 30px;
+    width: 24px;
+    border: 0px;
+  }
+
+  .customCheckbox{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+    display: inline-block; 
+    position: absolute; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ctitle%3Eeye-plus%3C/title%3E%3Cpath d='M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C12.36,19.5 12.72,19.5 13.08,19.45C13.03,19.13 13,18.82 13,18.5C13,17.94 13.08,17.38 13.24,16.84C12.83,16.94 12.42,17 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12C17,12.29 16.97,12.59 16.92,12.88C17.58,12.63 18.29,12.5 19,12.5C20.17,12.5 21.31,12.84 22.29,13.5C22.56,13 22.8,12.5 23,12C21.27,7.61 17,4.5 12,4.5M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M18,14.5V17.5H15V19.5H18V22.5H20V19.5H23V17.5H20V14.5H18Z' /%3E%3C/svg%3E");
+    background-size: 24px 24px;
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    margin: 0;
+    cursor:pointer;
+  }
+
+  .customCheckbox:checked{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='green' viewBox='0 0 24 24'%3E%3Ctitle%3Echeck-all%3C/title%3E%3Cpath d='M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z' /%3E%3C/svg%3E");
+    fill: green;
+  }
+
   .footer{
     background-color: #9ca3af;
     color: white;
@@ -196,5 +236,15 @@
     justify-content: center;
     margin-top: auto;
     height: 40px;
+    gap: 10px;
   }
 
+  #github {
+    max-height: 25px;
+    border-radius: 20px;
+    transition: transform .7s ease-in-out;
+  }
+
+  #github:hover{
+      transform: rotate(720deg);
+  }
