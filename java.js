@@ -83,39 +83,42 @@ function validateForm(event){
     event.preventDefault()
     if (inputOne.value ==''){
         titleErr.style.display = 'block'
+        inputOne.style.borderColor = 'red'
     } else {
         titleErr.style.display = 'none'
     }
     if (inputTwo.value ==''){
         authorErr.style.display = 'block'
+        inputTwo.style.borderColor = 'red'
     } else {
         authorErr.style.display = 'none'
     }
     if (inputThree.value ==''){
         pagesErr.style.display = 'block'
+        inputThree.style.borderColor = 'red'
     } else {
         pagesErr.style.display = 'none'
     }
     if (inputThree.value <=0){
         pageNumErr.style.display = 'block'
+        inputFour.style.borderColor = 'red'
     } else {
         pageNumErr.style.display = 'none'
     }
     if (inputFive.value ==''){
         urlErr.style.display = 'block'
+        inputFive.style.borderColor = 'red'
     } else {
         urlErr.style.display = 'none'
     }
     if (inputOne.value !=='' && inputTwo.value !=='' && inputThree.value !=='' && inputThree.value > 0 && inputFive.value !==''){
     if (newBookSubmBtn.id == ''){
         addBookToLibrary()
-        form.reset()
         newBookDialog.close();
         display.replaceChildren()
         displayAllBooks();
     } else {
         editBookInLibrary()
-        form.reset()
         newBookDialog.close();
         display.replaceChildren()
         displayAllBooks();
@@ -199,18 +202,24 @@ newBookButton.addEventListener("click", () => {
 
 closeButton.addEventListener("click", (event) => {
     event.preventDefault()
-    titleErr.style.display ='none'
-    authorErr.style.display ='none'
-    pagesErr.style.display ='none'
-    pageNumErr.style.display='none'
-    urlErr.style.display ='none'
-    form.reset()
-    newBookSubmBtn.id = ''
     newBookDialog.close();
   })
 
 newBookSubmBtn.addEventListener('click', (event) =>{
     validateForm(event)
+})
+
+newBookDialog.addEventListener('close',() =>{
+    Array.from(form.elements).forEach((input)=>{
+    input.style.border = '1px solid gray'
+    })
+    titleErr.style.display ='none'
+    authorErr.style.display ='none'
+    pagesErr.style.display ='none'
+    pageNumErr.style.display='none'
+    urlErr.style.display ='none'
+    newBookSubmBtn.id = ''
+    form.reset()
 })
 
 populateLibrary()

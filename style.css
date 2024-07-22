@@ -67,6 +67,7 @@
   .titleErr, .authorErr, .pagesErr, .pageNumErr, .urlErr{
     display: none;
     color: red;
+    font-size: small;
   }
   
 
